@@ -1,0 +1,104 @@
+
+ <!--****************************** html file **************************************
+  This file formats your web server 
+ ************************************************************************************/-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+h1 {
+    background-color: #e0ffff;  <!--background colour of Babel Fish header-->
+}
+
+p {
+    background-color: rgb(10,100,100);  <!--background colour of "Input text to translate" -->
+}
+    
+p2 {
+    background-color: rgb(255,0,255);  <!--background colour of "Please choose a language"-->
+}
+
+
+    
+</style>
+</head>
+<body>
+
+<h1>Babel Fish Project</h1>
+<img src="/babel.jpg" alt="Babel Fish" style="width:304px;height:228px;"> <br>
+
+    
+    <p> <big>Input text to translate:</big></p>
+    
+              <input id = 'translateText'  type="text" name="text" value=""><br>  <!--adds a textbox where you can input text to be translated-->
+    
+    <br><p2><big>Please choose a language:</big></p2>
+    
+    
+    <form>
+        
+          <ul id="languages"></ul>   
+        
+        <!-- adding radio buttons to choose the language-->
+        
+      <input type="radio" id="radio_mandarin" name="language" value="Mandarin" onclick="myFunction(value)"/>Mandarin 
+<br/>
+<input type="radio" id="radio_french" name="language" value="French" onclick="myFunction(value)" />French
+<br/>
+<input type="radio" id="radio_malay" name="language" value="Malay" onclick="myFunction(value)" />Malay
+<br/>
+<input type="radio" id="radio_hindi" name="language" value="Hindi" onclick="myFunction(value)"/>Hindi
+<br/>
+<input type="radio" id="radio_german" name="language" value="German" onclick="myFunction(value)" />German
+    <form action="">
+     
+    </form>
+          
+          </form>
+      
+    <!--creates a function to store the text in test[1] and store the language index in text[0] -->
+      
+      <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+      <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+     <script>
+  var socket = io();
+
+         function myFunction (value) 
+         {   
+             var text = [];
+             
+            switch (value) {
+                    
+                        case "Mandarin":
+                                text[0] = 0;
+                                 
+                                break; 
+                        case "French":
+                                text[0] = 1;
+                                break; 
+                        case "Malay":
+                                text[0] = 2;
+                                break;
+                        case "Hindi":
+                                text[0] = 3;
+                                break;
+                        case "German":
+                                text[0] = 4;
+                    
+                                break;
+                        default: 
+                                text[0] = "No language selected";
+                                }
+                
+             
+                text[1] = document.getElementById('translateText').value;
+                socket.emit('language', text);
+         }
+         
+         
+</script>
+
+</body>
+</html>
